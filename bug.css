@@ -1,0 +1,18 @@
+The following CSS code snippet demonstrates an issue with unexpected behavior when using the `:focus-visible` pseudo-class in conjunction with specific form elements and styling techniques.  The goal is to only show a focus indicator when the element receives focus via keyboard navigation or assistive technologies, but not when clicked with a mouse.
+
+```css
+input[type="text"] {
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+
+input[type="text"]:focus-visible {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px #007bff;
+}
+```
+
+This code works correctly in many cases. However, if the input field is styled with `outline: none;` outside the `:focus-visible` rule (e.g., in a parent element or a global stylesheet), it can cause unexpected behavior. The focus outline will be completely removed even when using keyboard navigation, which defeats the purpose of `:focus-visible`.
+
+This is because `outline: none` has higher specificity than the `:focus-visible` selector, overriding the styling applied within the `:focus-visible` rule. This can lead to accessibility issues as users who rely on visual focus indicators may not see them when using the keyboard.
