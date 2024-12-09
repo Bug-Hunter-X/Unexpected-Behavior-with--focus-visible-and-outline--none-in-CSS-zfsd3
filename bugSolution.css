@@ -1,0 +1,30 @@
+The solution involves ensuring that the `:focus-visible` styles have higher specificity than the `outline: none` style. This can be achieved by applying the `outline: none;` style more specifically to the elements where it's truly needed, and ensuring that the `:focus-visible` rule's specificity outweighs other conflicting styles.
+
+```css
+input[type="text"] {
+  border: 1px solid #ccc;
+  padding: 8px;
+  /*Move outline: none here if truly needed only for non-focus state*/
+}
+
+input[type="text"]:focus-visible {
+  outline: none; /*This will override previous outline: none if present*/
+  border-color: #007bff;
+  box-shadow: 0 0 5px #007bff;
+}
+
+/*Or if outline: none is used globally, use important to override*/
+input[type="text"] {
+  border: 1px solid #ccc;
+  padding: 8px;
+  outline: none !important; /*Use !important cautiously*/
+}
+
+input[type="text"]:focus-visible {
+  outline: 2px solid #007bff; /*Ensure a visible outline*/
+  border-color: #007bff;
+  box-shadow: 0 0 5px #007bff;
+}
+```
+
+By carefully managing specificity and potentially using `!important` (with caution!), you can ensure that the `:focus-visible` styles are applied correctly and provide appropriate visual feedback for keyboard users.
